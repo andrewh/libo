@@ -39,11 +39,12 @@ int main(int argc, char **argv)
 	bndl_u = NULL;
 
 	// deserialize the serialized bundle
-	osc_bundle_s_deserialize(len, bndl_s, &bndl_u);
-	
+	osc_bundle_s_deserialize(len, bndl_s);
+
 	// iterate over messages in a serialized bundle
 	t_osc_bndl_it_s *b_it_s = osc_bndl_it_s_get(len, bndl_s);
-	while(osc_bndl_it_s_hasNext(b_it_s)){
+	while (osc_bndl_it_s_hasNext(b_it_s))
+	{
 		t_osc_msg_s *m = osc_bndl_it_s_next(b_it_s);
 		printf("%s\n", osc_message_s_getAddress(m));
 	}
@@ -64,12 +65,14 @@ int main(int argc, char **argv)
 
 	// iterate over messages in an unserialized bundle
 	t_osc_bndl_it_u *b_it_u = osc_bndl_it_u_get(bndl_u_2);
-	while(osc_bndl_it_u_hasNext(b_it_u)){
+	while (osc_bndl_it_u_hasNext(b_it_u))
+	{
 		t_osc_msg_u *m = osc_bndl_it_u_next(b_it_u);
 		printf("%s has typetags ", osc_message_u_getAddress(m));
 		// iterate over atoms in list
 		t_osc_msg_it_u *m_it_u = osc_msg_it_u_get(m);
-		while(osc_msg_it_u_hasNext(m_it_u)){
+		while (osc_msg_it_u_hasNext(m_it_u))
+		{
 			t_osc_atom_u *a = osc_msg_it_u_next(m_it_u);
 			printf("%c", osc_atom_u_getTypetag(a));
 		}
@@ -78,4 +81,3 @@ int main(int argc, char **argv)
 	}
 	osc_bndl_it_u_destroy(b_it_u);
 }
-
