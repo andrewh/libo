@@ -16,6 +16,8 @@ LIBO_PARSER_CFILES = $(foreach OBJ, $(LIBO_PARSER_BASENAMES), $(OBJ).c)
 LIBO_PARSER_HFILES = $(foreach OBJ, $(LIBO_PARSER_BASENAMES), $(OBJ).h)
 LIBO_PARSER_OBJECTS = $(foreach OBJ, $(LIBO_PARSER_BASENAMES), $(OBJ).o)
 
+LIBO_FLEX_PATH ?= /usr/local
+
 LIBO_OBJECTS = $(LIBO_OFILES) $(LIBO_SCANNER_OBJECTS) $(LIBO_PARSER_OBJECTS)
 
 RELEASE-CFLAGS += -Wall -Wno-trigraphs -fno-strict-aliasing -O3 -funroll-loops -std=c99
@@ -36,7 +38,7 @@ all: CFLAGS += $(MAC-CFLAGS)
 all: CC = clang
 all: I = $(MAC-INCLUDES)
 all: $(LIBO_CFILES) $(LIBO_HFILES) $(LIBO_SCANNER_CFILES) $(LIBO_PARSER_CFILES) libo.a
-all: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) ${FLEX_PATH}/lib/libfl.a
+all: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) $(LIBO_FLEX_PATH)/lib/libfl.a
 all: DYNAMIC-LINK = clang -dynamiclib $(MAC-CFLAGS) -single_module -compatibility_version 1 -current_version 1 -o libo.dylib $(LIBO_OBJECTS)
 
 arm: CFLAGS += $(RELEASE-CFLAGS)
@@ -44,7 +46,7 @@ arm: CFLAGS += $(ARM-CFLAGS)
 arm: CC = clang
 arm: I = $(ARM-INCLUDES)
 arm: $(LIBO_CFILES) $(LIBO_HFILES) $(LIBO_SCANNER_CFILES) $(LIBO_PARSER_CFILES) libo.a
-arm: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) ${FLEX_PATH}/lib/libfl.a
+arm: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) $(LIBO_FLEX_PATH)/lib/libfl.a
 arm: DYNAMIC-LINK = clang -dynamiclib $(MAC-CFLAGS) -single_module -compatibility_version 1 -current_version 1 -o libo.dylib $(LIBO_OBJECTS)
 
 debug: CFLAGS += $(DEBUG-CFLAGS)
@@ -52,7 +54,7 @@ debug: CFLAGS += $(MAC-CFLAGS)
 debug: CC = clang
 debug: I = $(MAC-INCLUDES)
 debug: $(LIBO_CFILES) $(LIBO_HFILES) $(LIBO_SCANNER_CFILES) $(LIBO_PARSER_CFILES) libo.a
-debug: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) ${FLEX_PATH}/lib/libfl.a
+debug: STATIC-LINK = libtool -static -o libo.a $(LIBO_OBJECTS) $(LIBO_FLEX_PATH)/lib/libfl.a
 
 win: CFLAGS += $(RELEASE-CFLAGS)
 win: CFLAGS += $(WIN-CFLAGS)

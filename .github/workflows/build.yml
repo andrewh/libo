@@ -13,18 +13,15 @@ jobs:
       - name: build
         env:
           MAC_SYSROOT: MacOSX10.15.sdk
-          FLEX_PATH: "/usr/local/opt/flex"
+          LIBO_FLEX_PATH: "/usr/local/opt/flex"
           CFLAGS: "-I/usr/local/opt/flex/include -I/usr/local/opt/bison/include -L/usr/local/opt/flex/lib -L/usr/local/opt/bison/lib"
           PATH: "/usr/local/opt/flex/bin:/usr/local/opt/bison/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
         run: |
-          which bison
-          which flex
-          which make
           make
       - name: test
         env:
           MAC_SYSROOT: MacOSX10.15.sdk
-          FLEX_PATH: "/usr/local/opt/flex"
+          LIBO_FLEX_PATH: "/usr/local/opt/flex"
           CFLAGS: "-I/usr/local/opt/flex/include -I/usr/local/opt/bison/include -L/usr/local/opt/flex/lib -L/usr/local/opt/bison/lib"
           PATH: "/usr/local/opt/flex/bin:/usr/local/opt/bison/bin:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
         run: make test
